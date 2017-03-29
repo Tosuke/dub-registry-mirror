@@ -1,0 +1,26 @@
+{
+  "name": "dub-registry-mirror",
+  "version": "1.0.0",
+  "description": "Mirror of dub package registry",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "gulp build",
+    "watch": "gulp watch"
+  },
+  "repository": "git@github.com:Tosuke/dub-registry-mirror.git",
+  "author": "Tosuke <tasukeprg@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.2.0",
+    "koa-router": "next"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.39",
+    "@types/koa-router": "^7.0.22",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.2",
+    "gulp-typescript": "^3.1.6",
+    "typescript": "^2.2.2"
+  }
+}
