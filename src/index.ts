@@ -7,13 +7,15 @@ const router = buildRouter();
 
 const removeExt = async (ctx: Koa.Context, next) => {
   const ext = (() => {
-    const matched = ctx.path.match(/\.(.+?)$/);
+    const matched = ctx.path.match(/\.(\w+?)$/);
     return matched !== null ? matched[1] : "";
   })();
 
   if (ext === "" || ext === "json" ) {
-    ctx.path = ctx.path.replace(/\.(.+?)$/, "");
+    ctx.path = ctx.path.replace(/\.(\w+?)$/, "");
     await next();
+  } else if(ext === "zip") {
+    //TODO: add zip handler
   } else {
     ctx.status = 404;
     ctx.body = "Not found";

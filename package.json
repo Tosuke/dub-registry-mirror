@@ -5,6 +5,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "start": "node ./dist/index.js",
+    "clone": "node clone.js",
     "build": "gulp build",
     "watch": "gulp watch"
   },
@@ -13,11 +14,17 @@
   "license": "MIT",
   "dependencies": {
     "koa": "^2.2.0",
-    "koa-router": "next"
+    "koa-router": "next",
+    "monk": "^4.0.0",
+    "request": "^2.81.0",
+    "request-promise-native": "^1.0.3",
+    "semver": "^5.3.0"
   },
   "devDependencies": {
     "@types/koa": "^2.0.39",
     "@types/koa-router": "^7.0.22",
+    "@types/request-promise-native": "^1.0.2",
+    "@types/semver": "^5.3.31",
     "gulp": "^3.9.1",
     "gulp-cli": "^1.2.2",
     "gulp-typescript": "^3.1.6",
