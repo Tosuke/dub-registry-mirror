@@ -48,6 +48,12 @@
     "@types/koa-compose" "*"
     "@types/node" "*"
 
+"@types/mongodb@^2.1.41":
+  version "2.1.41"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-2.1.41.tgz#92ea0f832b9e0269c7826fb7f899cf86fe5c4df5"
+  dependencies:
+    "@types/node" "*"
+
 "@types/node@*":
   version "7.0.12"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.12.tgz#ae5f67a19c15f752148004db07cbbb372e69efc9"
@@ -1314,20 +1320,13 @@ mongodb-core@2.1.9:
     bson "~1.0.4"
     require_optional "~1.0.0"
 
-mongodb@^2.1.18:
+mongodb@^2.2.25:
   version "2.2.25"
   resolved "https://registry.yarnpkg.com/mongodb/-/mongodb-2.2.25.tgz#d3b25dad00eda2bdfcbc996210ba082ac686a6b6"
   dependencies:
     es6-promise "3.2.1"
     mongodb-core "2.1.9"
     readable-stream "2.1.5"
-
-monk@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/monk/-/monk-4.0.0.tgz#ac5439e3543b1b486d787d1704bd7e10a2ddd0d2"
-  dependencies:
-    debug "*"
-    mongodb "^2.1.18"
 
 ms@0.7.2:
   version "0.7.2"

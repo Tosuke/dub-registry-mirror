@@ -4,13 +4,7 @@
     "target": "es2017",
     "noImplicitAny": false,
     "sourceMap": false,
-    "strictNullChecks": true,
-
-    "baseUrl": "./",
-
-    "paths": {
-      "monk": "./types/monk.d.ts"
-    }
+    "strictNullChecks": true
   },
   "exclude": [
     "node_modules"

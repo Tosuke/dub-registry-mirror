@@ -1,15 +1,27 @@
-import * as monk from "monk";
+import * as mongo from "mongodb";
 
 export class DB {
-  private db: monk.Manager;
+  private db: mongo.Db;
   
-  readonly packages: monk.Collection;
-  readonly versions: monk.Collection;
+  private packages_: mongo.Collection;
+  private versions_: mongo.Collection;
+
+  get packages() {
+    return this.packages_;
+  }
+
+  get versions() {
+    return this.versions_;
+  } 
 
   public constructor(uri: string) {
-    this.db = monk(uri);
-    this.packages = this.db.get("packages");
-    this.versions = this.db.get("versions");
+    mongo.MongoClient.connect(uri)
+      .then(db => {
+        this.db = db;
+
+        this.packages_ = this.db.collection("packages");
+        this.versions_ = this.db.collection("versions");
+      })
   }
 
   public close(): void {
@@ -17,5 +29,5 @@ export class DB {
   }
 }
 
-const db: DB = new DB("localhost/dub-registry");
+const db: DB = new DB("mongodb://localhost:27017/dub-registry");
 export default db;

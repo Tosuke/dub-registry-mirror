@@ -16,6 +16,10 @@ const endpoints: Endpoint[] = [
     path: "/api/packages/:name/info",
     file: "/api/packages/name/info.ts"
   },
+  {
+    path: "/api/packages/:name/latest",
+    file: "/api/packages/name/latest.ts"
+  },
 
   // /api/packages/:name/:version
   {

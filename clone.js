@@ -1,12 +1,12 @@
-const mongo = require("monk");
+const mongo = require("mongodb");
 
 async function main() {
   const data = await request("http://code.dlang.org");
   console.log(`packages: ${data.packages.length}, versions: ${data.versions.length}`);
 
-  const db = mongo("localhost/dub-registry");
-  const packages = db.get("packages");
-  const versions = db.get("versions");
+  const db = mongo.MongoClient.connect("mongodb://localhost:27017/dub-registry");
+  const packages = db.collection("packages");
+  const versions = db.collection("versions")
 
   await versions.insert(data.versions);
   
@@ -39,7 +39,7 @@ async function request(url) {
       if(/^~/.test(vername)) return;
       let version = await getContent(`${url}/api/packages/${name}/${vername}/info`);
       if(version === undefined) return;
-      
+
       console.log(`${name}/${vername}`);
 
       version.name = name;

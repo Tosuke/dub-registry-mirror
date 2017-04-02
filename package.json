@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./dist/index.js",
     "clone": "node clone.js",
+    "proto": "node test.js",
     "build": "gulp build",
     "watch": "gulp watch"
   },
@@ -15,7 +16,7 @@
   "dependencies": {
     "koa": "^2.2.0",
     "koa-router": "next",
-    "monk": "^4.0.0",
+    "mongodb": "^2.2.25",
     "request": "^2.81.0",
     "request-promise-native": "^1.0.3",
     "semver": "^5.3.0"
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@types/koa": "^2.0.39",
     "@types/koa-router": "^7.0.22",
+    "@types/mongodb": "^2.1.41",
     "@types/request-promise-native": "^1.0.2",
     "@types/semver": "^5.3.31",
     "gulp": "^3.9.1",
