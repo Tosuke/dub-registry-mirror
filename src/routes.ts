@@ -7,6 +7,17 @@ interface Endpoint {
 }
 
 const endpoints: Endpoint[] = [
+  // test
+  {
+    path: "/test",
+    file: "/test.ts"
+  },
+
+  // /api/packages
+  {
+    path: "/api/packages/search",
+    file: "/api/packages/search.ts"
+  },
   // /api/packages/:name
   {
     path: "/api/packages/:name/stats",
@@ -25,6 +36,10 @@ const endpoints: Endpoint[] = [
   {
     path: "/api/packages/:name/:version/stats",
     file: "/api/packages/name/version/stats.ts"
+  },
+  {
+    path: "/api/packages/:name/:version/info",
+    file: "/api/packages/name/version/info.ts"
   },
 
   // /packages

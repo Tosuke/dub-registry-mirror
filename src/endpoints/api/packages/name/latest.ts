@@ -25,5 +25,5 @@ export default async function latest(ctx: koa.Context) {
   ctx.response.set({
     "Content-Type": "application/json; charset=utf-8"
   });
-  ctx.body = `"${latestVersion}"`;
+  ctx.body = `"${latestVersion.version}"`;
 }

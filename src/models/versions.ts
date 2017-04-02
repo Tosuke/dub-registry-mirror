@@ -1,5 +1,5 @@
 import db from "../db";
-import { ObjectID } from "mongodb";
+import { ObjectID, Cursor } from "mongodb";
 
 export interface Version {
   date: string,
@@ -12,14 +12,14 @@ export interface Version {
 }
 
 class Versions {
-  find(query?: object, opts?: object): Promise<Version[]> {
+  find(query?: object, fields?: object): Cursor<Version> {
     return (() => {
       if(query !== undefined) {
-        return db.versions.find(query, opts);
+        return db.versions.find(query, fields);
       } else {
         return db.versions.find();
       }
-    })().toArray() as Promise<Version[]>;
+    })() as Cursor<Version>;
   }
 
   findOne(query: object): Promise<Version|null> {
@@ -28,6 +28,30 @@ class Versions {
 
   getById(id: ObjectID): Promise<Version|null> {
     return this.findOne({_id: id});
+  }
+
+  getByName(name: string, vername: string): Promise<Version|null> {
+    return this.findOne({ name: name, version: vername });
+  }
+
+  search(query: string): Promise<Version[]> {
+    const q = {
+      $text: {
+        $search: query
+      }
+    }
+    const field = {
+      score: {
+        $meta: "textScore"
+      }
+    }
+    return this.find(q, field)
+            .sort({score: {$meta: "textScore"}})
+            .map(a => {
+              delete a.score;
+              return a;
+            })
+            .toArray()
   }
 }
 

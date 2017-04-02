@@ -21,6 +21,8 @@ export class DB {
 
         this.packages_ = this.db.collection("packages");
         this.versions_ = this.db.collection("versions");
+
+        console.info("[INFO] succeeded to connect MongoDB")
       })
   }
 
