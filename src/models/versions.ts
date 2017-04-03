@@ -2,12 +2,13 @@ import db from "../db";
 import { ObjectID, Cursor } from "mongodb";
 
 export interface Version {
-  date: string,
-  version: string,
-  info: any,
-  readme: string,
-  commitID: string,
-  packageID: ObjectID,
+  _id: ObjectID
+  date: string
+  version: string
+  info: any
+  readme: string
+  commitID: string
+  packageID: ObjectID
   name: string
 }
 
@@ -34,6 +35,10 @@ class Versions {
     return this.findOne({ name: name, version: vername });
   }
 
+  async getUrl(ver: Version): Promise<string> {
+    return "http://www.google.com";
+  }
+
   search(query: string): Promise<Version[]> {
     const q = {
       $text: {
@@ -52,6 +57,15 @@ class Versions {
               return a;
             })
             .toArray()
+  }
+  
+  async toPackageVersion(ver: Version): Promise<any> {
+    let info = ver.info;
+    info.date = ver.date;
+    info.version = ver.version;
+    info.readme = ver.readme;
+    info.url = await this.getUrl(ver);
+    return info;
   }
 }
 
