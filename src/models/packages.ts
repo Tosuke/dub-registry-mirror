@@ -20,8 +20,20 @@ class Packages {
     return db.packages.findOne(query) as Promise<Package|null>;
   }
 
+  updateMany(query: object, update: object): void {
+    db.packages.updateMany(query, update);
+  }
+
+  updateOne(query: object, update: object): void {
+    db.packages.updateOne(query, update);
+  }
+
   getByID(id: ObjectID): Promise<Package|null> {
     return this.findOne({_id: id});
+  }
+
+  updateByID(id: ObjectID, update: Package): void {
+    this.updateOne({_id: id}, update);
   }
 
   getByName(name: string): Promise<Package|null> {
@@ -33,6 +45,13 @@ class Packages {
   }
 
   async getLatestVersion(pkg: Package): Promise<Version|null> {
+    if(pkg.latestVersion !== undefined) {
+      const ver = await versions.getById(pkg.latestVersion);
+      if(ver !== null) {
+        return ver;
+      }
+    }
+
     const vers = (await Promise.all(
       pkg.versions.map(verID => {
         return versions.getById(verID);
@@ -46,13 +65,17 @@ class Packages {
       return vers[0];
     }
 
-    return vers
-            .reduce((a, b, i, arr) => {
-              if(semver.valid(b.version) === undefined) return a;
-              if(semver.valid(a.version) === undefined) return b;
-
-              return semver.gt(b.version, a.version) ? b : a;
-            });
+    const latestVer = vers
+                      .reduce((a, b, i, arr) => {
+                        if(semver.valid(b.version) === undefined) return a;
+                        if(semver.valid(a.version) === undefined) return b;
+                      
+                        return semver.gt(b.version, a.version) ? b : a;
+                      });
+    
+    this.updateOne({_id: pkg._id}, {$set: {latestVersion: latestVer._id}});
+    
+    return latestVer;
   }
 
   async search(query?: string): Promise<Package[]> {
@@ -74,14 +97,16 @@ class Packages {
 
 
 export interface Package {
-  name: string,
+  _id: ObjectID
+  name: string
   repository: {
-    project: string,
-    owner: string,
+    project: string
+    owner: string
     kind: "github"|"bitbucket"
-  },
-  dateAdded: string,
-  categories: string[],
+  }
+  dateAdded: string
+  categories: string[]
+  latestVersion?: ObjectID
   versions: ObjectID[]
 }
 

@@ -18,6 +18,7 @@ const endpoints: Endpoint[] = [
     path: "/api/packages/search",
     file: "/api/packages/search.ts"
   },
+  
   // /api/packages/:name
   {
     path: "/api/packages/:name/stats",
